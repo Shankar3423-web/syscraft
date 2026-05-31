@@ -1,0 +1,316 @@
+.sc-cta {
+  position: relative;
+  width: 100%;
+  padding: 5rem 5%;
+  background-color: transparent;
+  color: var(--sc-text);
+  overflow: hidden;
+  z-index: 1;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Background Effects */
+.sc-cta__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.sc-cta__bg-gradient {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center, rgba(0, 112, 243, 0.1) 0%, rgba(121, 40, 202, 0.05) 30%, transparent 70%);
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.sc-cta__bg-gradient.is-visible {
+  opacity: 1;
+  animation: pulse-glow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+}
+
+.sc-cta__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Left Content */
+.sc-cta__content {
+  flex: 1;
+  max-width: 650px;
+}
+
+.sc-cta__heading {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.sc-cta__highlight {
+  background: linear-gradient(135deg, #0070f3 0%, #7928ca 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.sc-cta__description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--sc-text-muted, #a0a0a0);
+  margin-bottom: 2rem;
+  max-width: 550px;
+}
+
+.sc-cta__trust-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.sc-cta__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.sc-cta__check {
+  color: #0070f3;
+  font-weight: bold;
+}
+
+.sc-cta__highlights {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--sc-text-muted, #888);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sc-cta__dot {
+  color: #333;
+}
+
+/* Right Form Element */
+.sc-cta__form-wrapper {
+  flex: 1;
+  max-width: 550px;
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 3rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.sc-cta__form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.sc-cta__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sc-cta__form-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.sc-cta__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.sc-cta__form-label {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.sc-cta__form-input,
+.sc-cta__form-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.sc-cta__form-input:focus,
+.sc-cta__form-textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #0070f3;
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+}
+
+.sc-cta__form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.sc-cta__form-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.sc-cta__form-submit:hover {
+  background: #005fd3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 112, 243, 0.4);
+}
+
+.sc-cta__submit-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.sc-cta__form-submit:hover .sc-cta__submit-icon {
+  transform: translateX(4px);
+}
+
+/* Closing Statement */
+.sc-cta__closing {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sc-cta__closing-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.sc-cta__closing-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--sc-text-muted, #a0a0a0);
+}
+
+/* Animations setup */
+.sc-cta__animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.sc-cta__animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .sc-cta__container {
+    flex-direction: column;
+    gap: 4rem;
+  }
+  
+  .sc-cta__content {
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .sc-cta__form-wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sc-cta {
+    padding: 6rem 5%;
+  }
+
+  .sc-cta__form-wrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .sc-cta__form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sc-cta__highlights {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sc-cta__dot {
+    display: none;
+  }
+
+  .sc-cta__closing {
+    margin-top: 2rem;
+    padding-top: 2rem;
+  }
+}

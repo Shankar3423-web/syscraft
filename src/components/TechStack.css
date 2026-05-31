@@ -1,0 +1,278 @@
+.ts-apple-section {
+  position: relative;
+  width: 100%;
+  background-color: transparent; 
+  color: var(--sc-text-1, #f1f5f9);
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Minimalist ambient background gradient */
+.ts-apple-ambient-bg {
+  position: absolute;
+  top: -50%; left: -20%; right: -20%; bottom: -50%;
+  background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.15), transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ts-container {
+  width: 100%;
+  max-width: 1300px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Apple-Style Header ─── */
+.ts-apple-header-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ts-apple-header-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ts-apple-main-title {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  color: #f5f5f7;
+}
+.ts-text-gradient {
+  background: linear-gradient(110deg, #00D4FF 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ts-apple-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #a1a1a6;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* ─── 4 Top / 3 Bottom Layout ─── */
+.ts-apple-grid-wrapper {
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+.ts-apple-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+.top-row .ts-apple-card-container { width: calc(25% - 0.75rem); }
+.bottom-row .ts-apple-card-container { width: calc(33.333% - 0.666rem); }
+
+
+/* ─── 3D Card Container (Handles X/Y Translation) ─── */
+.ts-apple-card-container {
+  position: relative;
+  perspective: 2000px;
+  /* EXTREMELY SLOW 2.5s flight transition */
+  transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+/* ─── The Flippable Inner Card (Handles Y-Rotation) ─── */
+.ts-apple-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px; /* Outer bounds for the border */
+  transform-style: preserve-3d;
+  /* EXTREMELY SLOW 2s flip transition */
+  transition: transform 2s cubic-bezier(0.25, 1, 0.5, 1);
+  min-height: 275px; /* Increased to fit larger tech lists like Frameworks */
+}
+.phase-settled .ts-apple-card-inner {
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+}
+
+/* ─── Static Glowing Edge ─── */
+.ts-static-edge {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  /* Beautiful static gradient border using the theme color */
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, var(--theme-color) 40%, rgba(255,255,255,0.1) 100%);
+  z-index: 0;
+  opacity: 0.8;
+  border-radius: 18px;
+}
+
+/* ─── Common Face Styles (Front & Back) ─── */
+.ts-apple-card-front, .ts-apple-card-back {
+  position: absolute;
+  top: 1px; left: 1px; right: 1px; bottom: 1px; /* 1px gap to show static border */
+  border-radius: 17px;
+  background: rgba(15, 15, 18, 0.95);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.02);
+  z-index: 2;
+}
+
+/* ─── FRONT FACE (0 deg) ─── */
+.ts-apple-card-front {
+  padding: 1rem 1rem;
+  transform: rotateY(0deg);
+  display: flex;
+  flex-direction: column;
+}
+
+.phase-settled.ts-apple-card-container:hover .ts-apple-card-front {
+  box-shadow: inset 0 0 40px rgba(var(--theme-color), 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Dynamic Glare / Shimmer Effect */
+.ts-apple-glare {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 50%
+  );
+  transform: translateZ(1px);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Floating 3D Content */
+.ts-apple-content {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(40px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.phase-settled.ts-apple-card-container:hover .ts-apple-content {
+  transform: translateZ(60px);
+}
+
+/* Front Content Layout */
+.ts-apple-header { margin-bottom: 0.5rem; }
+.ts-apple-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+}
+.ts-apple-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f5f5f7;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.ts-apple-desc {
+  font-size: 0.85rem;
+  color: #a1a1a6;
+  line-height: 1.4;
+  margin: 0 0 1rem 0;
+}
+.ts-apple-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.ts-apple-tech-item {
+  padding: 0.3rem 0.7rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e5e5ea; /* Brighter white for legibility */
+}
+
+
+/* ─── ULTRA MINIMAL BACK FACE (180 deg) ─── */
+.ts-apple-card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #050508; 
+}
+.ts-card-back-branding {
+  text-align: center;
+  z-index: 2;
+  transform: translateZ(40px);
+}
+.ts-back-symbol {
+  font-size: 3rem;
+  margin: 0;
+  filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
+}
+
+
+/* ─── Responsive Layout ─── */
+@media (max-width: 1200px) {
+  .ts-apple-row {
+    flex-wrap: wrap;
+  }
+  .top-row .ts-apple-card-container, .bottom-row .ts-apple-card-container {
+    width: calc(50% - 1.25rem); /* 2 per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .ts-apple-header-section { margin-bottom: 4rem; }
+  .ts-apple-main-title { font-size: 2.5rem; }
+  .top-row .ts-apple-card-container, .bottom-row .ts-apple-card-container {
+    width: 100%; /* 1 per row */
+  }
+  .phase-settled.ts-apple-card-container {
+    perspective: none;
+  }
+  .phase-settled .ts-apple-card-inner {
+    transform: none !important;
+  }
+  .phase-settled .ts-apple-content {
+    transform: none !important;
+  }
+  .ts-apple-glare { display: none; }
+}
+
+/* Animated 3D Cyber-Grid Background */
+.ts-background-grid {
+  position: absolute;
+  top: 50%; left: -50%; right: -50%; bottom: -50%;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(99,102,241,0.25) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(99,102,241,0.25) 1.5px, transparent 1.5px);
+  background-size: 70px 70px;
+  transform: perspective(800px) rotateX(75deg);
+  transform-origin: top center;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 10%, black 30%, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, transparent 10%, black 30%, black 60%, transparent 100%);
+  animation: tsGridMove 1.5s linear infinite;
+  pointer-events: none;
+}
+@keyframes tsGridMove {
+  0% { transform: perspective(800px) rotateX(75deg) translateY(0); }
+  100% { transform: perspective(800px) rotateX(75deg) translateY(70px); }
+}

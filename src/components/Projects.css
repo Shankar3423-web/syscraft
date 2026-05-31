@@ -1,0 +1,289 @@
+.sc-projects {
+  padding: 5rem 2rem;
+  background-color: var(--color-bg); /* Use base bg */
+  color: var(--color-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.sc-projects__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Styles */
+.sc-projects__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sc-projects__heading {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sc-projects__subheading {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.sc-projects__description {
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Category Section Header */
+.sc-projects__category-section {
+  margin-bottom: 5rem;
+}
+
+.sc-projects__category-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.sc-projects__category-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.sc-projects__category-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
+}
+
+/* Horizontal Carousel */
+.sc-projects__carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Hide the scrolling overflow */
+}
+
+.sc-projects__carousel {
+  width: 100%;
+}
+
+.sc-projects__carousel-track {
+  display: flex;
+  gap: 2rem;
+  /* Auto-scroll track width will be handled implicitly by flex items */
+}
+
+.sc-projects__carousel.auto-scroll .sc-projects__carousel-track {
+  width: max-content;
+  animation: scrollTrack 30s linear infinite;
+}
+
+.sc-projects__carousel.auto-scroll:hover .sc-projects__carousel-track {
+  animation-play-state: paused;
+}
+
+.sc-projects__carousel.no-scroll .sc-projects__carousel-track {
+  justify-content: center;
+}
+
+@keyframes scrollTrack {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 1rem)); } /* Move halfway + half the gap */
+}
+
+/* Project Card */
+.sc-project-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(30px);
+  /* Carousel properties */
+  width: calc((min(100vw, 1200px) - 8rem) / 3);
+  max-width: 320px; /* Reduced from 360px */
+  min-width: 280px;
+  flex-shrink: 0;
+}
+
+.sc-project-card.sc-in-view {
+  animation: fadeInUpCard 0.6s ease forwards;
+}
+
+@keyframes fadeInUpCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sc-project-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--color-primary-rgb), 0.1);
+  transform: translateY(-5px);
+}
+
+/* Card Image */
+.sc-project-card__image-wrap {
+  position: relative;
+  width: 100%;
+  height: 150px; /* Reduced from 160px */
+  overflow: hidden;
+}
+
+.sc-projects__carousel.no-scroll .sc-project-card {
+  flex: 1;
+  max-width: 420px; /* Limit stretch so they don't get massive */
+  width: 100%;
+}
+
+.sc-projects__carousel.no-scroll .sc-project-card__image-wrap {
+  height: 180px; /* Adjusted proportionally */
+}
+
+.sc-project-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.sc-project-card:hover .sc-project-card__image {
+  transform: scale(1.05);
+}
+
+.sc-project-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.sc-project-card:hover .sc-project-card__overlay {
+  opacity: 1;
+}
+
+.sc-project-card__read-more {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.5);
+}
+
+.sc-project-card:hover .sc-project-card__read-more {
+  transform: translateY(0);
+}
+
+.sc-project-card__read-more .arrow {
+  transition: transform 0.3s ease;
+}
+
+.sc-project-card__read-more:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Card Content */
+.sc-project-card__content {
+  padding: 1.25rem; /* Reduced from 1.5rem */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sc-project-card__tagline {
+  font-size: 0.7rem; /* Reduced */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primary);
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.sc-project-card__title {
+  font-size: 1.15rem; /* Reduced from 1.3rem */
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: #fff;
+}
+
+.sc-project-card__desc {
+  color: var(--color-text-muted);
+  font-size: 0.85rem; /* Reduced from 0.9rem */
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+/* Tech Stack Pills */
+.sc-project-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sc-tech-pill {
+  font-size: 0.65rem; /* Reduced from 0.75rem */
+  padding: 0.25rem 0.6rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  color: #aaa;
+  transition: all 0.3s ease;
+}
+
+.sc-project-card:hover .sc-tech-pill {
+  border-color: rgba(var(--color-primary-rgb), 0.3);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.1);
+}
+
+.sc-tech-pill:hover {
+  background: rgba(var(--color-primary-rgb), 0.2);
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 1200px) {
+  .sc-project-card {
+    width: calc((100vw - 6rem) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .sc-project-card {
+    width: calc(100vw - 4rem);
+    min-width: 280px;
+  }
+  .sc-projects__category-title {
+    font-size: 1.5rem;
+  }
+}

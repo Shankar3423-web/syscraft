@@ -1,0 +1,148 @@
+.sc-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #050505;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1500px;
+  transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
+}
+
+.sc-loader-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sc-loader-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  z-index: 10;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  width: 300px;
+}
+
+.sc-loader-logo-container.assembling ~ .sc-loader-text,
+.sc-loader-logo-container.complete ~ .sc-loader-text,
+.sc-loader-logo-container.collapsing ~ .sc-loader-text {
+  opacity: 0;
+  transform: translate(-50%, -60%);
+  pointer-events: none;
+}
+
+.sc-loader-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sc-loader-progress-fill {
+  height: 100%;
+  background: #00e5ff;
+  box-shadow: 0 0 10px #00e5ff;
+  transition: width 0.1s linear;
+}
+
+.sc-loader-text-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.sc-loader-percentage {
+  color: #00e5ff;
+  font-family: 'Inter', monospace, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+.sc-loader-text h2 {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Inter', monospace, sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin: 0;
+  text-align: right;
+}
+
+.sc-loader-logo-container {
+  position: relative;
+  width: 40vw;
+  max-width: 450px;
+  min-width: 250px;
+  transform-style: preserve-3d;
+  z-index: 5;
+}
+
+/* For mobile */
+@media (max-width: 768px) {
+  .sc-loader-logo-container {
+    width: 60vw;
+  }
+}
+
+.sc-loader-piece {
+  position: absolute;
+  background-repeat: no-repeat;
+  backface-visibility: visible;
+  /* Initial state: scattered and invisible */
+  opacity: 0;
+  transform: translate3d(var(--tx), var(--ty), var(--tz)) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+  transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1.2s ease-out;
+  transition-delay: var(--delay);
+}
+
+/* Assembling Phase */
+.sc-loader-logo-container.assembling .sc-loader-piece,
+.sc-loader-logo-container.complete .sc-loader-piece {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0);
+  box-shadow: inset 0 0 1px rgba(255,255,255,0.05); /* very subtle grid line */
+}
+
+/* Complete Phase - Add a glowing effect to the formed logo */
+.sc-loader-logo-container.complete {
+  animation: sc-logo-glow 1.2s ease-in-out forwards;
+}
+
+@keyframes sc-logo-glow {
+  0% { filter: drop-shadow(0 0 0 rgba(0, 229, 255, 0)); }
+  50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.6)); transform: scale(1.05); }
+  100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.3)); transform: scale(1); }
+}
+
+/* Collapsing Phase - explode away */
+.sc-loader-logo-container.collapsing .sc-loader-piece {
+  opacity: 0;
+  transform: translate3d(var(--ctx), var(--cty), var(--ctz)) rotateX(var(--crx)) rotateY(var(--cry)) rotateZ(var(--crz)) scale(2);
+  transition: transform 1.5s cubic-bezier(0.6, 0, 0.2, 1), opacity 1.2s ease-in;
+  transition-delay: var(--cdelay);
+  filter: blur(8px);
+}
+
+/* Website Evolution Animation */
+.sc-site-evolve {
+  animation: sc-site-evolve-anim 2.5s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes sc-site-evolve-anim {
+  0% { transform: scale(1.1); filter: brightness(4) blur(20px); opacity: 0; }
+  25% { transform: scale(1.05); filter: brightness(2) blur(8px); opacity: 0.8; }
+  100% { transform: scale(1); filter: brightness(1) blur(0px); opacity: 1; }
+}
