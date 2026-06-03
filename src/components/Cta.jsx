@@ -81,29 +81,31 @@ const Cta = () => {
 
         {/* Right Form Element */}
         <div className="sc-cta__form-wrapper sc-cta__animate delay-6">
-          <form className="sc-cta__form" onSubmit={(e) => e.preventDefault()}>
+          <form className="sc-cta__form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="1c047cd9-783d-45d3-80ec-2b505c5e5dda" />
+            
             <h3 className="sc-cta__form-title">Tell Us About Your Project</h3>
             
             <div className="sc-cta__form-group">
               <label htmlFor="name" className="sc-cta__form-label">Full Name</label>
-              <input type="text" id="name" className="sc-cta__form-input" placeholder="John Doe" required />
+              <input type="text" id="name" name="name" className="sc-cta__form-input" placeholder="John Doe" required />
             </div>
 
             <div className="sc-cta__form-row">
               <div className="sc-cta__form-group">
                 <label htmlFor="email" className="sc-cta__form-label">Email Address</label>
-                <input type="email" id="email" className="sc-cta__form-input" placeholder="john@company.com" required />
+                <input type="email" id="email" name="email" className="sc-cta__form-input" placeholder="john@company.com" required />
               </div>
               
               <div className="sc-cta__form-group">
                 <label htmlFor="company" className="sc-cta__form-label">Company (Optional)</label>
-                <input type="text" id="company" className="sc-cta__form-input" placeholder="Your Company" />
+                <input type="text" id="company" name="company" className="sc-cta__form-input" placeholder="Your Company" />
               </div>
             </div>
 
             <div className="sc-cta__form-group">
               <label htmlFor="requirement" className="sc-cta__form-label">Project Requirement</label>
-              <textarea id="requirement" className="sc-cta__form-textarea" placeholder="Briefly describe what you're looking to build..." rows="4" required></textarea>
+              <textarea id="requirement" name="message" className="sc-cta__form-textarea" placeholder="Briefly describe what you're looking to build..." rows="4" required></textarea>
             </div>
 
             <button type="submit" className="sc-cta__form-submit">
