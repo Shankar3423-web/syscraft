@@ -11,11 +11,13 @@ import Process from './components/Process'
 import WhyChooseUs from './components/WhyChooseUs'
 import Cta from './components/Cta'
 import Footer from './components/Footer'
+import AboutPage from './components/AboutPage'
 import './App.css'
 
 function App() {
   const [loading, setLoading] = useState(true)
   const [siteEvolving, setSiteEvolving] = useState(false)
+  const [isAboutOpen, setIsAboutOpen] = useState(false)
   const heroRef = useRef(null)
 
   const handleBlast = () => {
@@ -108,7 +110,17 @@ function App() {
               <ul className="sc-nav__links" id="sc-nav-links">
                 {navLinks.map(link => (
                   <li key={link}>
-                    <a href={`#${link.toLowerCase()}`} className="sc-nav__link" id={`sc-nav-${link.toLowerCase()}`}>
+                    <a 
+                      href={`#${link.toLowerCase()}`} 
+                      className="sc-nav__link" 
+                      id={`sc-nav-${link.toLowerCase()}`}
+                      onClick={(e) => {
+                        if (link === 'About') {
+                          e.preventDefault();
+                          setIsAboutOpen(true);
+                        }
+                      }}
+                    >
                       {link}
                     </a>
                   </li>
@@ -219,6 +231,9 @@ function App() {
           <Footer />
         </div>
       </div>
+
+      {/* ═══ ABOUT PAGE MODAL ═══ */}
+      <AboutPage isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
     </>
   )
 }
